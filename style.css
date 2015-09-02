@@ -1,0 +1,31 @@
+body {
+background-color:#1d1d1d;
+}
+
+.container {
+	overflow:hidden;
+}
+
+
+.right-side-menu {
+	position:fixed;
+	//right:20px;
+	left:10px;
+	top:50px;
+	z-index:10000000;
+	//width:50px;
+	//height:100px;
+	//display:none;
+}
+
+.hidden {
+	//display:none;
+	margin-top:-500px;
+	transition:0.5s;
+	opacity:1;
+	z-index:100000;
+}
+
+.map-section iframe {
+width:100%;
+}
