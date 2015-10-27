@@ -641,7 +641,7 @@ outline:none;
 }
 
 .first-large-section {
-	height:1700px;
+	height:2500px;
 	position:relative;
 }
 
@@ -757,7 +757,18 @@ outline:none;
 
 
 .bottom-part-1 {
+	width:715px;
+	height:400px;
+	padding:10px;
+	background:RGB(15,67,94);
+	float:left;
+	margin:20px 0 0 20px;
+}
 
+#phys-map {
+	background:white;
+	width:100%;
+	height:100%;
 }
 /* Footer
 -----------------------------------------------------------------------------*/

@@ -13,6 +13,7 @@
 	<link href="style.css" rel="stylesheet">
 	<script type="text/javascript" src="jquery-1.4.1.min.js"></script>
 	<script type="text/javascript" src="jquery.orbit.js"></script>
+	<script src="https://cdn.rawgit.com/konvajs/konva/0.10.0/konva.min.js"></script>
 	
 </head>
 
@@ -148,6 +149,8 @@
 			
 		
 </script>
+
+
 
 <body>
 
@@ -368,9 +371,9 @@ http://csu.com.ua/studio/kkt/images/spacer.gif Если вы младший сп
 			<!-- end right part -->
 			
 			<div class="bottom-part-1">
-				<canvas class="phys-info">
+				<div id="phys-map">
 				
-				</canvas>
+				</div>
 			</div>
 			
 		</section>
@@ -384,6 +387,149 @@ http://csu.com.ua/studio/kkt/images/spacer.gif Если вы младший сп
 		</section>
 	</div>
 </div><!-- .wrapper -->
+
+<!-- canvas script: konva.js-->
+
+<script>
+	function writeMessage(message) {
+      text.setText(message);
+      layer.draw();
+    }
+	
+    var width = 715;
+    var height = 400;
+
+	
+    var stage = new Konva.Stage({
+        container: 'phys-map',
+        width: width,
+        height: height
+    });
+	
+	 var text = new Konva.Text({
+      x: 70,
+      y: 10,
+      fontFamily: 'Calibri',
+      fontSize: 24,
+      text: '',
+      fill: 'black'
+    });
+
+	var layer = new Konva.Layer();
+	
+	  var layer2 = new Konva.Layer({
+        draggable: true
+	  });
+    var rectX = stage.getWidth() / 2 - 50;
+    var rectY = stage.getHeight() / 2 - 25;
+
+	var imageObj = new Image();
+    imageObj.onload = function() {
+
+      var yoda = new Konva.Image({
+        x: 50,
+        y: 50,
+        image: imageObj,
+        width: 630,
+        height: 672
+      });
+	  
+	    layer2.add(yoda);
+		
+	
+	  for(var i = 0; i < 3; i++) { 
+	   var box2 = new Konva.Rect({
+        x: 80+i*210,
+        y: 160,
+        width: 200,
+        height: 200,
+        //fill: '#00D2FF',
+        stroke: 'black',
+        strokeWidth: 4,
+		name:'name'+i
+    });
+	
+		
+	  
+	
+	layer2.add(box2);
+	}
+
+	
+	   layer2.on('mouseover', function(evt) {
+      var shape = evt.target;
+	  shape.setAttrs({
+			fill: '#00D2FF'
+		});
+		layer2.draw();
+      writeMessage('Mouseover on '+shape.getName());
+
+    });
+	
+	  layer2.on('mouseout', function(evt) {
+      var shape = evt.target;
+	  shape.setAttrs({
+			fill: ''
+		});
+		layer2.draw();
+    });
+	  
+	
+	
+      // add the layer to the stage
+      stage.add(layer2);
+	}
+	 imageObj.src = 'office2_plan.jpg';
+    var box = new Konva.Rect({
+        x: rectX,
+        y: rectY,
+        width: 100,
+        height: 50,
+        fill: '#00D2FF',
+        stroke: 'black',
+        strokeWidth: 4,
+        draggable: true
+    });
+
+    // add cursor styling
+    box.on('mouseover', function() {
+        document.body.style.cursor = 'pointer';
+    });
+    box.on('mouseout', function() {
+        document.body.style.cursor = 'default';
+    });
+
+	 layer.add(text);
+    layer.add(box);
+    stage.add(layer);
+	
+	 var group = new Konva.Group({
+        x: 120,
+        y: 40,
+        rotation: 20
+    });
+
+    var colors = ['red', 'orange', 'yellow'];
+
+    for(var i = 0; i < 3; i++) {
+        var box = new Konva.Rect({
+            x: i * 30,
+            y: i * 18,
+            width: 100,
+            height: 50,
+            name: colors[i],
+            fill: colors[i],
+            stroke: 'black',
+            strokeWidth: 4,
+			draggable:true
+        });
+
+        group.add(box);
+    }
+
+    layer.add(group);
+    stage.add(layer);
+</script>
 
 </body>
 </html>
